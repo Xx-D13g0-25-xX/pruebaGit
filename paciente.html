@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitalito GLP – Inicio Paciente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-wrapper">
+      <a class="brand-logo" href="paciente.html">
+        <div class="logo-icon"><i class="material-icons">assignment</i></div>
+        Hospitalito GLP
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <div class="page-center">
+    <div class="card-box" style="max-width:660px">
+
+      <div class="avatar-circle avatar-purple">
+        <i class="material-icons">person</i>
+      </div>
+
+      <h3 class="card-title" id="user-name">Juan</h3>
+      <p class="card-subtitle" id="user-lastname">García</p>
+
+      <div class="next-appointment" id="proxima-cita">
+        Próxima cita: <span id="cita-text">Sin citas programadas</span>
+      </div>
+
+      <div class="action-row">
+        <a class="btn-action btn-indigo" href="solicitar-cita.html">
+          <i class="material-icons">calendar_today</i> Solicitar Cita
+        </a>
+        <a class="btn-action btn-purple" href="historial.html">
+          <i class="material-icons">description</i> Historial Clínico
+        </a>
+      </div>
+
+      <a class="btn-logout" href="/hospitalito/logout.php">
+        <i class="material-icons">logout</i> Cerrar Sesión
+      </a>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Mostrar nombre guardado en sessionStorage si existe
+    // (En una implementación real, esto vendría del servidor PHP con sesiones)
+    const name = sessionStorage.getItem('user_name');
+    const ap   = sessionStorage.getItem('user_ap');
+    if (name) document.getElementById('user-name').textContent     = name;
+    if (ap)   document.getElementById('user-lastname').textContent = ap;
+  </script>
+</body>
+</html>

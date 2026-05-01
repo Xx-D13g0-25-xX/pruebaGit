@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitalito GLP – Inicio Doctor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background-color: var(--bg-doctor); }
+    .card-box { box-shadow: 0 8px 40px rgba(13,148,136,.12), 0 2px 8px rgba(0,0,0,.06); }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-wrapper">
+      <a class="brand-logo" href="doctor.html">
+        <div class="logo-icon"><i class="material-icons">assignment</i></div>
+        Hospitalito GLP
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <div class="page-center">
+    <div class="card-box" style="max-width:660px">
+
+      <p class="welcome-text">Bienvenido Doctor</p>
+
+      <div class="avatar-emoji">🧑‍⚕️</div>
+
+      <h3 class="card-title" id="doc-name">Dr. Carlos</h3>
+      <p class="card-subtitle" id="doc-lastname">Rodríguez</p>
+
+      <div class="action-row">
+        <a class="btn-action btn-teal" href="agenda.html">
+          <i class="material-icons">calendar_today</i> Agenda
+        </a>
+        <a class="btn-action btn-cyan" href="pacientes-asignados.html">
+          <i class="material-icons">group</i> Pacientes Asignados
+        </a>
+      </div>
+
+      <a class="btn-logout" href="/hospitalito/logout.php">
+        <i class="material-icons">logout</i> Cerrar Sesión
+      </a>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    const name = sessionStorage.getItem('user_name');
+    const ap   = sessionStorage.getItem('user_ap');
+    if (name) document.getElementById('doc-name').textContent     = 'Dr. ' + name;
+    if (ap)   document.getElementById('doc-lastname').textContent = ap;
+  </script>
+</body>
+</html>

@@ -1,7 +1,4 @@
--- ================================================================
---  HOSPITALITO GLP – Script de Base de Datos
---  Ejecuta este archivo en phpMyAdmin o MySQL Workbench
--- ================================================================
+--Script base de datos.
 
 CREATE DATABASE IF NOT EXISTS hospitalito
   CHARACTER SET utf8mb4

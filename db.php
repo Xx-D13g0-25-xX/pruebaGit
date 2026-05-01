@@ -1,9 +1,4 @@
 <?php
-/* ================================================================
-   HOSPITALITO GLP – Configuración de Base de Datos
-   ================================================================
-   Modifica las constantes según tu entorno (XAMPP/WAMP/servidor)
-   ================================================================ */
 
 define('DB_HOST',   'localhost');
 define('DB_USER',   'root');        // Tu usuario MySQL

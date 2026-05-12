@@ -3,63 +3,255 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hospitalito GLP – Inicio Paciente</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <title>Hospitalito GLP – Mi Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ddd6fe;
+      --dark: #12101e;
+      --white: #ffffff;
+      --border: rgba(0,0,0,0.12);
+      --purple: #7c3aed;
+      --purple-light: #ede9fe;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; }
+
+    nav { background: rgba(255,255,255,0.5); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,0.7); padding: 0 32px; height: 54px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .brand { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--dark); }
+    .btn-logout-nav { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 5px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; color: #555; cursor: pointer; }
+    .btn-logout-nav:hover { background: #f0ebff; }
+
+    .page { max-width: 900px; margin: 0 auto; padding: 36px 20px; }
+
+    .greeting { font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 800; color: var(--dark); margin-bottom: 2px; line-height: 1.1; }
+    .greeting span { color: var(--purple); }
+    .greeting-sub { font-size: 0.9rem; color: #666; margin-bottom: 28px; }
+
+    .main-grid { display: grid; grid-template-columns: 1fr 280px; gap: 20px; align-items: start; }
+
+    .card { background: var(--white); border-radius: 18px; padding: 22px; box-shadow: 0 4px 24px rgba(109,40,217,0.09); }
+    .card-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--dark); margin-bottom: 16px; }
+
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .cal-selects { display: flex; gap: 6px; }
+    .cal-selects select { border: 1.5px solid var(--border); border-radius: 7px; padding: 3px 8px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--dark); background: #f5f0ff; outline: none; cursor: pointer; }
+    .cal-nav { background: none; border: 1.5px solid var(--border); border-radius: 7px; width: 28px; height: 28px; cursor: pointer; font-size: 1rem; color: var(--dark); display: flex; align-items: center; justify-content: center; }
+    .cal-nav:hover { background: #f0ebff; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .cal-dow { font-size: 0.68rem; font-weight: 700; color: #999; text-align: center; padding-bottom: 4px; }
+    .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; color: #444; border-radius: 7px; cursor: pointer; transition: background 0.12s; }
+    .cal-day:hover { background: #ede9fe; }
+    .cal-day.today { background: var(--dark); color: #fff; }
+    .cal-day.selected { background: var(--purple); color: #fff; }
+    .cal-day.has-cita { position: relative; color: var(--purple); font-weight: 800; }
+    .cal-day.has-cita::after { content:''; position:absolute; bottom:3px; left:50%; transform:translateX(-50%); width:4px; height:4px; border-radius:50%; background: var(--purple); }
+    .cal-day.other-month { color: #ccc; cursor: default; }
+    .cal-day.other-month:hover { background: none; }
+
+    .right-col { display: flex; flex-direction: column; gap: 14px; }
+
+    .next-card { background: var(--white); border-radius: 18px; padding: 20px; box-shadow: 0 4px 24px rgba(109,40,217,0.09); }
+    .next-label { font-size: 0.72rem; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .next-date { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--dark); }
+    .next-info { font-size: 0.82rem; color: #666; margin-top: 4px; }
+
+    .profile-card { background: var(--white); border-radius: 18px; overflow: hidden; box-shadow: 0 4px 24px rgba(109,40,217,0.09); display: flex; flex-direction: column; align-items: center; padding: 24px 20px; }
+    .profile-avatar { width: 88px; height: 88px; border-radius: 50%; border: 3px solid var(--bg); background: #f0ebff; overflow: hidden; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
+    .profile-avatar svg { width: 52px; height: 52px; }
+    .profile-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--dark); }
+    .profile-role { font-size: 0.78rem; color: #888; margin-top: 2px; }
+
+    .btn-block { display: block; width: 100%; height: 42px; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+    .btn-block:hover { opacity: 0.88; }
+    .btn-dark { background: var(--dark); color: #fff; }
+    .btn-outline { background: var(--white); color: var(--dark); border: 1.5px solid var(--border) !important; }
+
+    .cita-item { background: #f8f5ff; border-radius: 12px; padding: 13px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .cita-item .doc { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
+    .cita-item .fecha { font-size: 0.8rem; color: #777; margin-top: 2px; }
+    .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.74rem; font-weight: 700; margin-top: 4px; }
+    .badge-pendiente { background: #fef9c3; color: #854d0e; }
+    .badge-confirmada { background: #dcfce7; color: #166534; }
+    .badge-cancelada { background: #fee2e2; color: #991b1b; }
+    .btn-cancel { background: none; border: 1.5px solid #fca5a5; color: #dc2626; border-radius: 7px; padding: 4px 10px; font-family: 'DM Sans', sans-serif; font-size: 0.76rem; font-weight: 600; cursor: pointer; }
+    .btn-cancel:hover { background: #fee2e2; }
+
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(18,16,30,0.45); z-index: 200; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: var(--white); border-radius: 20px; padding: 34px; width: 100%; max-width: 460px; box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+    .modal-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--dark); margin-bottom: 20px; }
+    .mfield { margin-bottom: 14px; }
+    .mfield label { display: block; font-size: 0.78rem; font-weight: 600; color: #444; margin-bottom: 5px; }
+    .mfield select, .mfield input, .mfield textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 9px; padding: 9px 13px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--dark); outline: none; background: #f5f0ff; }
+    .mfield select:focus, .mfield input:focus, .mfield textarea:focus { border-color: var(--purple); }
+    .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .btn-modal-ok { width: 100%; height: 44px; background: var(--dark); color: #fff; border: none; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 600; cursor: pointer; margin-top: 8px; }
+    .btn-modal-cancel { width: 100%; height: 38px; background: #f5f0ff; color: #555; border: none; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; margin-top: 6px; }
+
+    @media (max-width: 660px) { .main-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
-
-  <!-- Navbar -->
   <nav>
-    <div class="nav-wrapper">
-      <a class="brand-logo" href="paciente.html">
-        <div class="logo-icon"><i class="material-icons">assignment</i></div>
-        Hospitalito GLP
-      </a>
-    </div>
+    <span class="brand">Hospitalito GLP</span>
+    <button type="button" class="btn-logout-nav">Cerrar sesión</button>
   </nav>
 
-  <!-- Main -->
-  <div class="page-center">
-    <div class="card-box" style="max-width:660px">
+  <div class="page">
+    <div class="greeting">
+      Bienvenido "<span>Nombre Paciente</span>"
+    </div>
+    <div class="greeting-sub">Paciente</div>
 
-      <div class="avatar-circle avatar-purple">
-        <i class="material-icons">person</i>
+    <div class="main-grid">
+      <!-- Columna izquierda -->
+      <div>
+        <div class="card">
+          <div class="card-title">Agenda</div>
+          <div class="cal-header">
+            <button class="cal-nav" id="cal-prev">&#8249;</button>
+            <div class="cal-selects">
+              <select id="cal-month-sel"></select>
+              <select id="cal-year-sel"></select>
+            </div>
+            <button class="cal-nav" id="cal-next">&#8250;</button>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="card-title" style="margin-bottom:10px">Próximas citas</div>
+
+          <div class="cita-item">
+            <div>
+              <div class="doc">Dr. Carlos Ruiz</div>
+              <div class="fecha">15/06/2026 · 10:00</div>
+              <span class="badge badge-confirmada">Confirmada</span>
+            </div>
+          </div>
+
+          <div class="cita-item">
+            <div>
+              <div class="doc">Dr. Ana Torres</div>
+              <div class="fecha">20/06/2026 · 09:30</div>
+              <span class="badge badge-pendiente">Pendiente</span>
+            </div>
+            <button class="btn-cancel">Cancelar</button>
+          </div>
+        </div>
       </div>
 
-      <h3 class="card-title" id="user-name">Juan</h3>
-      <p class="card-subtitle" id="user-lastname">García</p>
+      <!-- Columna derecha -->
+      <div class="right-col">
+        <div class="profile-card">
+          <div class="profile-avatar">
+            <svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="18" r="10" fill="#c4b5fd"/><path d="M4 50c0-12.1 9.9-20 22-20s22 7.9 22 20" fill="#c4b5fd"/></svg>
+          </div>
+          <div class="profile-name">Nombre Apellido</div>
+          <div class="profile-role">Paciente</div>
+        </div>
 
-      <div class="next-appointment" id="proxima-cita">
-        Próxima cita: <span id="cita-text">Sin citas programadas</span>
+        <div class="next-card">
+          <div class="next-label">Proxima cita:</div>
+          <div class="next-date">15/06/2026</div>
+          <div class="next-info">10:00 · Dr. Carlos Ruiz</div>
+        </div>
+
+        <button class="btn-block btn-dark" onclick="openModal()">Agendar proxima cita</button>
+        <button class="btn-block btn-outline" style="margin-top:10px">Ver Historial Medico</button>
+        <button class="btn-block btn-outline" style="margin-top:10px">Editar mis datos</button>
       </div>
-
-      <div class="action-row">
-        <a class="btn-action btn-indigo" href="solicitar-cita.html">
-          <i class="material-icons">calendar_today</i> Solicitar Cita
-        </a>
-        <a class="btn-action btn-purple" href="historial.html">
-          <i class="material-icons">description</i> Historial Clínico
-        </a>
-      </div>
-
-      <a class="btn-logout" href="/hospitalito/logout.php">
-        <i class="material-icons">logout</i> Cerrar Sesión
-      </a>
-
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Modal agendar cita -->
+  <div class="modal-overlay" id="modal-cita">
+    <div class="modal-box">
+      <div class="modal-title">Agendar Cita</div>
+      <div class="mfield">
+        <label>Doctor</label>
+        <select>
+          <option value="">— Doctor —</option>
+          <option>Dr. Carlos Ruiz – Medicina General</option>
+          <option>Dr. Ana Torres – Cardiología</option>
+          <option>Dr. Luis Mendoza – Pediatría</option>
+        </select>
+      </div>
+      <div class="modal-row">
+        <div class="mfield">
+          <label>Seleccione el dia</label>
+          <input type="date" id="modal-fecha">
+        </div>
+        <div class="mfield">
+          <label>Hora</label>
+          <select>
+            <option value="">— Hora —</option>
+            <option>08:00</option><option>08:30</option><option>09:00</option>
+            <option>09:30</option><option>10:00</option><option>10:30</option>
+            <option>11:00</option><option>11:30</option><option>12:00</option>
+            <option>14:00</option><option>14:30</option><option>15:00</option>
+          </select>
+        </div>
+      </div>
+      <div class="mfield">
+        <label>Detalles</label>
+        <textarea rows="3" placeholder="Describe el motivo de tu cita..."></textarea>
+      </div>
+      <button type="button" class="btn-modal-ok">Añadir cita</button>
+      <button type="button" class="btn-modal-cancel" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+
   <script>
-    // Mostrar nombre guardado en sessionStorage si existe
-    // (En una implementación real, esto vendría del servidor PHP con sesiones)
-    const name = sessionStorage.getItem('user_name');
-    const ap   = sessionStorage.getItem('user_ap');
-    if (name) document.getElementById('user-name').textContent     = name;
-    if (ap)   document.getElementById('user-lastname').textContent = ap;
+    // Calendario
+    const today = new Date();
+    let cur = { m: today.getMonth(), y: today.getFullYear() };
+    const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    const dows  = ['Lu','Ma','Mi','Ju','Vi','Sa','Do'];
+    const selM  = document.getElementById('cal-month-sel');
+    const selY  = document.getElementById('cal-year-sel');
+
+    meses.forEach((m,i) => { const o=document.createElement('option'); o.value=i; o.text=m; selM.appendChild(o); });
+    for (let y=today.getFullYear()-2; y<=today.getFullYear()+3; y++) {
+      const o=document.createElement('option'); o.value=y; o.text=y; selY.appendChild(o);
+    }
+
+    function renderCal() {
+      selM.value=cur.m; selY.value=cur.y;
+      const grid=document.getElementById('cal-grid'); grid.innerHTML='';
+      dows.forEach(d=>{ const el=document.createElement('div'); el.className='cal-dow'; el.textContent=d; grid.appendChild(el); });
+      const first=new Date(cur.y,cur.m,1);
+      let startDow=(first.getDay()+6)%7;
+      const daysInMonth=new Date(cur.y,cur.m+1,0).getDate();
+      const prevDays=new Date(cur.y,cur.m,0).getDate();
+      for(let i=0;i<startDow;i++){ const el=document.createElement('div'); el.className='cal-day other-month'; el.textContent=prevDays-startDow+1+i; grid.appendChild(el); }
+      for(let d=1;d<=daysInMonth;d++){
+        const el=document.createElement('div'); el.className='cal-day'; el.textContent=d;
+        const dateStr=`${cur.y}-${String(cur.m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        if(cur.y===today.getFullYear()&&cur.m===today.getMonth()&&d===today.getDate()) el.classList.add('today');
+        el.addEventListener('click',()=>{
+          document.querySelectorAll('.cal-day').forEach(x=>x.classList.remove('selected'));
+          el.classList.add('selected');
+          document.getElementById('modal-fecha').value=dateStr;
+        });
+        grid.appendChild(el);
+      }
+      let after=1;
+      while((startDow+daysInMonth+after-1)%7!==0){ const el=document.createElement('div'); el.className='cal-day other-month'; el.textContent=after; grid.appendChild(el); after++; }
+    }
+
+    document.getElementById('cal-prev').onclick=()=>{ if(--cur.m<0){cur.m=11;cur.y--;} renderCal(); };
+    document.getElementById('cal-next').onclick=()=>{ if(++cur.m>11){cur.m=0;cur.y++;} renderCal(); };
+    selM.onchange=()=>{ cur.m=+selM.value; renderCal(); };
+    selY.onchange=()=>{ cur.y=+selY.value; renderCal(); };
+    renderCal();
+
+    // Modal
+    function openModal()  { document.getElementById('modal-cita').classList.add('open'); }
+    function closeModal() { document.getElementById('modal-cita').classList.remove('open'); }
+    document.getElementById('modal-cita').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal(); });
   </script>
 </body>
 </html>

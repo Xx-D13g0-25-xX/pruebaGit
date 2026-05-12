@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitalito GLP – Recepcionista</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ddd6fe; --dark: #12101e; --white: #fff;
+      --border: rgba(0,0,0,0.12); --input-bg: #f0ebff;
+      --purple: #7c3aed; --purple-light: #c4b5fd; --sidebar-w: 230px;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; display: flex; }
+
+    .sidebar { width: var(--sidebar-w); background: var(--dark); color: #fff; display: flex; flex-direction: column; flex-shrink: 0; padding: 28px 18px 20px; }
+    .sidebar-logo { font-family: 'Syne',sans-serif; font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .sidebar-role { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--purple-light); margin-bottom: 28px; }
+    .nav-item { display: flex; align-items: center; gap: 9px; padding: 8px 11px; border-radius: 9px; font-size: .86rem; font-weight: 500; color: #c4b5fd; text-decoration: none; transition: background .15s; border: none; background: none; width: 100%; cursor: pointer; }
+    .nav-item:hover, .nav-item.active { background: var(--purple); color: #fff; }
+    .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .sidebar-footer { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.08); }
+    .sidebar-user { font-size: .8rem; color: #a78bfa; margin-bottom: 10px; }
+    .btn-logout { display: flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 8px; border: 1px solid rgba(255,255,255,.15); background: none; color: #e2e8f0; font-family: 'DM Sans',sans-serif; font-size: .82rem; cursor: pointer; }
+    .btn-logout:hover { background: rgba(255,255,255,.08); }
+
+    .main { flex: 1; padding: 32px 36px; overflow-y: auto; }
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-family: 'Syne',sans-serif; font-size: 1.9rem; font-weight: 800; color: var(--dark); }
+    .page-header p { font-size: .85rem; color: #666; margin-top: 3px; }
+
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--white); border-radius: 14px; padding: 18px 20px; box-shadow: 0 4px 20px rgba(109,40,217,.08); }
+    .stat-card .lbl { font-size: .75rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+    .stat-card .val { font-family: 'Syne',sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--dark); }
+
+    .section { background: var(--white); border-radius: 16px; padding: 24px 26px; box-shadow: 0 4px 20px rgba(109,40,217,.08); margin-bottom: 24px; }
+    .section-title { font-family: 'Syne',sans-serif; font-size: 1.05rem; font-weight: 800; color: var(--dark); margin-bottom: 18px; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field.full { grid-column: 1/-1; }
+    .field label { font-size: .76rem; font-weight: 600; color: #444; }
+    .field input, .field select, .field textarea { height: 38px; border: 1.5px solid var(--border); border-radius: 8px; padding: 0 11px; font-family: 'DM Sans',sans-serif; font-size: .85rem; color: var(--dark); background: var(--input-bg); outline: none; transition: border-color .15s; }
+    .field textarea { height: 64px; padding: 9px 11px; resize: none; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--purple); }
+    .btn-primary { height: 40px; background: var(--dark); color: #fff; border: none; border-radius: 8px; padding: 0 24px; font-family: 'DM Sans',sans-serif; font-size: .88rem; font-weight: 600; cursor: pointer; transition: opacity .15s; }
+    .btn-primary:hover { opacity: .85; }
+
+    .filter-bar { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 18px; }
+    .filter-bar .field { min-width: 170px; }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+    thead th { background: #f5f0ff; color: var(--dark); font-weight: 600; padding: 9px 12px; text-align: left; border-bottom: 2px solid #ede9fe; white-space: nowrap; }
+    tbody tr:hover { background: #faf8ff; }
+    tbody td { padding: 9px 12px; color: #374151; border-bottom: 1px solid #f3f0ff; vertical-align: middle; }
+    .badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: .72rem; font-weight: 700; text-transform: uppercase; }
+    .badge-pendiente  { background: #fef3c7; color: #92400e; }
+    .badge-confirmada { background: #d1fae5; color: #065f46; }
+    .badge-cancelada  { background: #fee2e2; color: #991b1b; }
+    .sel-est { border: 1.5px solid var(--border); border-radius: 7px; padding: 3px 8px; font-family: 'DM Sans',sans-serif; font-size: .8rem; font-weight: 600; background: #f5f0ff; cursor: pointer; outline: none; }
+    .btn-save { height: 28px; width: 28px; background: var(--dark); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: .9rem; margin-left: 4px; }
+    .empty-row td { text-align: center; color: #aaa; padding: 28px; font-style: italic; }
+
+    @media(max-width:720px){ .sidebar{display:none;} .main{padding:20px 14px;} .form-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-logo">🏥 Hospitalito GLP</div>
+  <div class="sidebar-role">Recepcionista</div>
+  <nav style="display:flex;flex-direction:column;gap:3px">
+    <button class="nav-item active">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Agenda
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">👤 Nombre Recepcionista</div>
+    <button class="btn-logout" type="button">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="15" height="15"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Cerrar sesión
+    </button>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="page-header">
+    <h1>Agenda General</h1>
+    <p>Gestión de citas · Recepcionista</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="stat-card"><div class="lbl">Citas hoy</div><div class="val">8</div></div>
+    <div class="stat-card"><div class="lbl">Doctores</div><div class="val">5</div></div>
+    <div class="stat-card"><div class="lbl">Pacientes</div><div class="val">34</div></div>
+  </div>
+
+  <!-- Nueva cita -->
+  <div class="section">
+    <div class="section-title">➕ Nueva Cita</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Paciente *</label>
+        <select>
+          <option value="">— Selecciona paciente —</option>
+          <option>Juan Pérez López</option>
+          <option>María García Soto</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Doctor *</label>
+        <select>
+          <option value="">— Selecciona doctor —</option>
+          <option>Dr. Carlos Ruiz — Medicina General</option>
+          <option>Dr. Ana Torres — Cardiología</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Fecha *</label>
+        <input type="date">
+      </div>
+      <div class="field">
+        <label>Hora *</label>
+        <input type="time">
+      </div>
+      <div class="field full">
+        <label>Motivo</label>
+        <textarea placeholder="Motivo de la cita..."></textarea>
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <button type="button" class="btn-primary">Registrar Cita</button>
+    </div>
+  </div>
+
+  <!-- Agenda / tabla -->
+  <div class="section">
+    <div class="section-title">📋 Agenda de Citas</div>
+
+    <div class="filter-bar">
+      <div class="field">
+        <label>Fecha</label>
+        <input type="date">
+      </div>
+      <div class="field">
+        <label>Doctor</label>
+        <select>
+          <option value="">— Todos —</option>
+          <option>Dr. Carlos Ruiz</option>
+          <option>Dr. Ana Torres</option>
+        </select>
+      </div>
+      <div><button type="button" class="btn-primary">Filtrar</button></div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>Hora</th><th>Paciente</th><th>Teléfono</th>
+            <th>Doctor</th><th>Especialidad</th><th>Motivo</th><th>Estatus</th><th>Cambiar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>09:00</td>
+            <td>Juan Pérez López</td>
+            <td>5512345678</td>
+            <td>Dr. Carlos Ruiz</td>
+            <td>Medicina General</td>
+            <td>Revisión general</td>
+            <td><span class="badge badge-confirmada">Confirmada</span></td>
+            <td style="display:flex;align-items:center">
+              <select class="sel-est">
+                <option>Pendiente</option>
+                <option selected>Confirmada</option>
+                <option>Cancelada</option>
+              </select>
+              <button class="btn-save">✓</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>10:30</td>
+            <td>María García Soto</td>
+            <td>5598765432</td>
+            <td>Dr. Ana Torres</td>
+            <td>Cardiología</td>
+            <td>—</td>
+            <td><span class="badge badge-pendiente">Pendiente</span></td>
+            <td style="display:flex;align-items:center">
+              <select class="sel-est">
+                <option selected>Pendiente</option>
+                <option>Confirmada</option>
+                <option>Cancelada</option>
+              </select>
+              <button class="btn-save">✓</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+</body>
+</html>

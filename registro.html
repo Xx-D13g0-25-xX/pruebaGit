@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitalito GLP – Registro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ddd6fe;
+      --dark: #12101e;
+      --white: #ffffff;
+      --border: rgba(0,0,0,0.13);
+      --input-bg: #f0ebff;
+      --purple-accent: #7c3aed;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
+
+    .register-card {
+      background: var(--white); border-radius: 20px;
+      padding: 44px 48px; width: 100%; max-width: 680px;
+      box-shadow: 0 6px 48px rgba(109,40,217,0.13);
+    }
+
+    .card-header { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .icon-box {
+      width: 54px; height: 54px; background: var(--bg);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .icon-box svg { width: 30px; height: 30px; }
+    .header-text .title { font-family: 'Syne', sans-serif; font-size: 1.65rem; font-weight: 800; color: var(--dark); }
+    .header-text .sub { font-size: 0.85rem; color: #777; margin-top: 2px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; margin-bottom: 0; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 0.78rem; font-weight: 600; color: #444; margin-bottom: 5px; }
+    .field input {
+      width: 100%; height: 42px;
+      border: 1.5px solid var(--border); border-radius: 9px;
+      padding: 0 13px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; color: var(--dark);
+      background: var(--input-bg); outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .field input::placeholder { color: #bbb; }
+    .field input:focus { border-color: var(--purple-accent); background: #f5f0ff; }
+
+    .btn-submit {
+      width: 100%; height: 46px;
+      background: var(--dark); color: #fff;
+      border: none; border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 600;
+      cursor: pointer; margin-top: 6px;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn-submit:hover { opacity: 0.86; transform: translateY(-1px); }
+
+    .card-footer { margin-top: 14px; text-align: center; font-size: 0.82rem; color: #888; }
+    .card-footer a { color: var(--purple-accent); font-weight: 600; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .register-card { padding: 28px 20px; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-card">
+
+    <div class="card-header">
+      <div class="icon-box">
+        <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="4" width="20" height="24" rx="3" stroke="#7c3aed" stroke-width="2"/>
+          <rect x="10" y="1" width="10" height="5" rx="2" stroke="#7c3aed" stroke-width="2"/>
+          <line x1="9" y1="12" x2="21" y2="12" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="9" y1="17" x2="21" y2="17" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="9" y1="22" x2="16" y2="22" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <div class="title">Registro:</div>
+        <div class="sub">Bienvenido &nbsp;·&nbsp; Ingrese sus datos para registrarse:</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" name="nombre" placeholder="">
+      </div>
+      <div class="field">
+        <label>Apellido Paterno</label>
+        <input type="text" name="apellido_paterno" placeholder="">
+      </div>
+      <div class="field">
+        <label>Apellido materno</label>
+        <input type="text" name="apellido_materno" placeholder="">
+      </div>
+      <div class="field">
+        <label>CP</label>
+        <input type="text" name="cp" placeholder="" maxlength="5">
+      </div>
+      <div class="field">
+        <label>Correo Electronico</label>
+        <input type="email" name="email" placeholder="user@hospitalito.com">
+      </div>
+      <div class="field">
+        <label>Dirección:</label>
+        <input type="text" name="direccion" placeholder="">
+      </div>
+      <div class="field">
+        <label>Teléfono</label>
+        <input type="tel" name="telefono" placeholder="10 dígitos" maxlength="10">
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" name="password" placeholder="Mín. 6 caracteres">
+      </div>
+      <div class="field">
+        <label>Confirmar contraseña</label>
+        <input type="password" name="confirm_password" placeholder="Repite tu contraseña">
+      </div>
+    </div>
+
+    <button type="button" class="btn-submit">Registrar</button>
+
+    <div class="card-footer">¿Ya tienes cuenta? <a href="index.html">Inicia sesión</a></div>
+  </div>
+</body>
+</html>

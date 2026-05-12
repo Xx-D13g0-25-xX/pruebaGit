@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospitalito GLP – Inicio de Sesión</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ddd6fe;
+      --dark: #12101e;
+      --white: #ffffff;
+      --purple-mid: #a78bfa;
+      --border: rgba(0,0,0,0.13);
+      --input-bg: #f0ebff;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; display: flex; }
+
+    .left-panel { width: 47%; position: relative; overflow: hidden; flex-shrink: 0; }
+    .left-panel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .left-panel-overlay { position: absolute; inset: 0; background: linear-gradient(180deg,rgba(88,28,235,0.10) 0%,rgba(0,0,0,0.06) 100%); }
+
+    .right-panel {
+      flex: 1; background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: center;
+      padding: 60px 56px;
+    }
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 3.4rem; font-weight: 800;
+      color: var(--dark); line-height: 1.05;
+      letter-spacing: -0.02em; margin-bottom: 32px;
+    }
+
+    .login-card {
+      background: var(--white); border-radius: 20px;
+      padding: 34px 30px; width: 100%; max-width: 340px;
+      box-shadow: 0 6px 40px rgba(109,40,217,0.12);
+    }
+    .avatar-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+    .avatar-wrap svg { width: 56px; height: 56px; }
+    .card-title { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--dark); text-align: center; margin-bottom: 3px; }
+    .card-sub { font-size: 0.82rem; color: #777; text-align: center; margin-bottom: 20px; }
+
+    .role-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
+    .role-btn { flex: 1; height: 34px; border-radius: 8px; border: 1.5px solid var(--border); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; background: var(--input-bg); color: #666; transition: all 0.15s; }
+    .role-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+    .field { margin-bottom: 13px; }
+    .field label { display: block; font-size: 0.78rem; font-weight: 600; color: #444; margin-bottom: 5px; }
+    .field input { width: 100%; height: 42px; border: 1.5px solid var(--border); border-radius: 9px; padding: 0 13px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--dark); background: var(--input-bg); outline: none; transition: border-color 0.15s; }
+    .field input::placeholder { color: #bbb; }
+    .field input:focus { border-color: #7c3aed; background: #f5f0ff; }
+
+    .link-row { text-align: right; margin-bottom: 14px; font-size: 0.78rem; }
+    .link-row a { color: #7c3aed; font-weight: 600; text-decoration: none; }
+    .link-row a:hover { text-decoration: underline; }
+
+    .btn-submit { width: 100%; height: 44px; background: var(--dark); color: #fff; border: none; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s, transform 0.1s; }
+    .btn-submit:hover { opacity: 0.86; transform: translateY(-1px); }
+
+    .card-footer { margin-top: 14px; text-align: center; font-size: 0.8rem; color: #888; }
+    .card-footer a { color: #7c3aed; font-weight: 600; text-decoration: none; }
+
+    @media (max-width: 680px) {
+      .left-panel { display: none; }
+      .right-panel { padding: 40px 20px; align-items: center; }
+      .page-title { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="left-panel">
+    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=900&q=80" alt="Hospital">
+    <div class="left-panel-overlay"></div>
+  </div>
+
+  <div class="right-panel">
+    <h1 class="page-title">Inicio de<br>sesion</h1>
+
+    <div class="login-card">
+      <div class="avatar-wrap">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="27" stroke="#c4b5fd" stroke-width="2"/>
+          <circle cx="28" cy="21" r="8.5" fill="#c4b5fd"/>
+          <path d="M9 50c0-10.2 8.5-16.5 19-16.5S47 39.8 47 50" fill="#c4b5fd"/>
+        </svg>
+      </div>
+      <div class="card-title">Bienvenido</div>
+      <div class="card-sub">Inicie sesion para ingresar</div>
+
+      <div class="role-toggle">
+        <button type="button" class="role-btn active" onclick="setRole(this)">Paciente</button>
+        <button type="button" class="role-btn" onclick="setRole(this)">Doctor</button>
+        <button type="button" class="role-btn" onclick="setRole(this)">Administrativo</button>
+      </div>
+
+      <div class="field">
+        <label>Correo Electronico</label>
+        <input type="email" placeholder="doctor@hospitalito.com">
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" placeholder="Ingrese su contraseña">
+      </div>
+
+      <div class="link-row">
+        <a href="registro.html">¿No tienes cuenta? Registrate Aquí</a>
+      </div>
+
+      <button type="button" class="btn-submit">Ingresar</button>
+
+      <div class="card-footer">¿No tienes cuenta? <a href="registro.html">Regístrate</a></div>
+    </div>
+  </div>
+
+  <script>
+    function setRole(el) {
+      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+  </script>
+</body>
+</html>

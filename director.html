@@ -22,7 +22,7 @@
     .nav-item svg { width: 17px; height: 17px; }
     .sidebar-footer { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.08); }
     .sidebar-user { font-size: .8rem; color: #a78bfa; margin-bottom: 10px; }
-    .btn-logout { display: flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 8px; border: 1px solid rgba(255,255,255,.15); background: none; color: #e2e8f0; font-family: 'DM Sans',sans-serif; font-size: .82rem; cursor: pointer; }
+    .btn-logout { display: flex; align-items: center; gap: 7px; padding: 7px 11px; border-radius: 8px; border: 1px solid rgba(255,255,255,.15); background: none; color: #e2e8f0; font-family: 'DM Sans',sans-serif; font-size: .82rem; cursor: pointer; width: 100%; }
     .btn-logout:hover { background: rgba(255,255,255,.08); }
 
     .main { flex: 1; padding: 32px 36px; overflow-y: auto; }
@@ -32,10 +32,14 @@
 
     .btn-primary { height: 38px; background: var(--dark); color: #fff; border: none; border-radius: 8px; padding: 0 20px; font-family: 'DM Sans',sans-serif; font-size: .86rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
     .btn-primary:hover { opacity: .85; }
-    .btn-danger { height: 30px; background: #fef2f2; color: #dc2626; border: 1.5px solid #fca5a5; border-radius: 7px; padding: 0 12px; font-family: 'DM Sans',sans-serif; font-size: .78rem; font-weight: 600; cursor: pointer; }
+    .btn-danger  { height: 30px; background: #fef2f2; color: #dc2626; border: 1.5px solid #fca5a5; border-radius: 7px; padding: 0 12px; font-family: 'DM Sans',sans-serif; font-size: .78rem; font-weight: 600; cursor: pointer; }
     .btn-danger:hover { background: #fee2e2; }
-    .btn-edit { height: 30px; background: #f0ebff; color: var(--purple); border: 1.5px solid #c4b5fd; border-radius: 7px; padding: 0 12px; font-family: 'DM Sans',sans-serif; font-size: .78rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; }
+    .btn-edit   { height: 30px; background: #f0ebff; color: var(--purple); border: 1.5px solid #c4b5fd; border-radius: 7px; padding: 0 12px; font-family: 'DM Sans',sans-serif; font-size: .78rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; }
     .btn-edit:hover { background: #ede9fe; }
+    .btn-warning  { height: 30px; background: #fffbeb; color: #b45309; border: 1.5px solid #fcd34d; border-radius: 7px; padding: 0 12px; font-family: 'DM Sans',sans-serif; font-size: .78rem; font-weight: 600; cursor: pointer; }
+    .btn-warning:hover { background: #fef3c7; }
+    .btn-activate { height: 30px; background: #f0fdf4; color: #15803d; border: 1.5px solid #86efac; border-radius: 7px; padding: 0 12px; font-family: 'DM Sans',sans-serif; font-size: .78rem; font-weight: 600; cursor: pointer; }
+    .btn-activate:hover { background: #dcfce7; }
     .btn-perfil { height: 30px; background: #eff6ff; color: #1d4ed8; border: 1.5px solid #93c5fd; border-radius: 7px; padding: 0 12px; font-family: 'DM Sans',sans-serif; font-size: .78rem; font-weight: 600; cursor: pointer; }
     .btn-perfil:hover { background: #dbeafe; }
 
@@ -55,17 +59,37 @@
     thead th { background: #f5f0ff; color: var(--dark); font-weight: 600; padding: 9px 12px; text-align: left; border-bottom: 2px solid #ede9fe; white-space: nowrap; }
     tbody tr:hover { background: #faf8ff; }
     tbody td { padding: 9px 12px; color: #374151; border-bottom: 1px solid #f3f0ff; vertical-align: middle; }
-    .td-actions { display: flex; gap: 6px; }
+    .td-actions { display: flex; gap: 6px; flex-wrap: wrap; }
     .empty-row td { text-align: center; color: #aaa; padding: 28px; font-style: italic; }
 
-    /* Vista tabs */
-    .vista { display: none; }
-    .vista.active { display: block; }
+    .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: .72rem; font-weight: 700; }
+    .badge-activo  { background: #dcfce7; color: #15803d; }
+    .badge-inactivo{ background: #fef3c7; color: #b45309; }
+    .badge-baja    { background: #fee2e2; color: #b91c1c; }
+
+    .esp-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .esp-tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: .72rem; font-weight: 600; background: #ede9fe; color: #5b21b6; }
+
+    /* Especialidades chips */
+    .esp-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .esp-chip { display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 20px; font-size: .78rem; font-weight: 500; border: 1.5px solid #c4b5fd; background: #f5f3ff; color: #5b21b6; cursor: pointer; transition: all .15s; user-select: none; }
+    .esp-chip input[type=checkbox] { display: none; }
+    .esp-chip:hover { background: #ede9fe; border-color: #7c3aed; }
+    .esp-chip.esp-chip-on { background: var(--purple); border-color: var(--purple); color: #fff; }
+
+    /* Toggle */
+    .toggle-switch { position: relative; display: inline-block; width: 46px; height: 24px; margin-top: 6px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #d1d5db; border-radius: 24px; transition: .2s; }
+    .toggle-slider:before { content: ""; position: absolute; height: 18px; width: 18px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: .2s; }
+    .toggle-switch input:checked + .toggle-slider { background: var(--purple); }
+    .toggle-switch input:checked + .toggle-slider:before { transform: translateX(22px); }
 
     /* Modal perfil */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1000; align-items: center; justify-content: center; }
     .modal-overlay.open { display: flex; }
-    .modal-card { background: #fff; border-radius: 20px; padding: 36px 40px; width: 100%; max-width: 440px; box-shadow: 0 12px 48px rgba(109,40,217,.18); position: relative; }
+    .modal-card { background: #fff; border-radius: 20px; padding: 36px 40px; width: 100%; max-width: 440px; box-shadow: 0 12px 48px rgba(109,40,217,.18); position: relative; animation: fadeUp .22s ease; }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
     .modal-close { position: absolute; top: 16px; right: 18px; background: #f3f4f6; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1.1rem; cursor: pointer; color: #374151; display: flex; align-items: center; justify-content: center; }
     .modal-close:hover { background: #e5e7eb; }
     .modal-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #a78bfa); display: flex; align-items: center; justify-content: center; font-family: 'Syne',sans-serif; font-size: 1.7rem; color: #fff; font-weight: 800; margin: 0 auto 14px; }
@@ -77,24 +101,28 @@
     .modal-field .val { font-size: .9rem; font-weight: 600; color: var(--dark); margin-top: 2px; }
     .modal-field.full { grid-column: 1/-1; }
 
-    @media(max-width:720px){ .sidebar{display:none;} .main{padding:20px 14px;} .form-grid{grid-template-columns:1fr;} .modal-card{padding:28px 20px;} .modal-info{grid-template-columns:1fr;} }
+    /* Inline form section */
+    .form-section { background: #f9f7ff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1.5px solid #e9e3ff; }
+    .form-section-title { font-family: 'Syne',sans-serif; font-size: .95rem; font-weight: 800; color: var(--dark); margin-bottom: 14px; }
+
+    @media(max-width:720px){ .sidebar{display:none;} .main{padding:20px 14px;} .form-grid{grid-template-columns:1fr;} }
   </style>
 </head>
 <body>
 <aside class="sidebar">
   <div class="sidebar-logo">🏥 Hospitalito GLP</div>
   <div class="sidebar-role">Director</div>
-  <button class="nav-item active" id="tab-pac" onclick="showVista('pacientes')">
+  <button class="nav-item active" id="nav-pacientes" onclick="showVista('pacientes')">
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     Pacientes
   </button>
-  <button class="nav-item" id="tab-doc" onclick="showVista('doctores')">
+  <button class="nav-item" id="nav-doctores" onclick="showVista('doctores')">
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/><path d="M12 14v4M10 16h4"/></svg>
     Doctores
   </button>
   <div class="sidebar-footer">
-    <div class="sidebar-user">👤 Nombre Director</div>
-    <button class="btn-logout" type="button">
+    <div class="sidebar-user">👤 Roberto Dirección</div>
+    <button class="btn-logout" onclick="location.href='index.html'">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="15" height="15"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       Cerrar sesión
     </button>
@@ -103,64 +131,93 @@
 
 <main class="main">
 
-  <!-- ════ VISTA PACIENTES ════ -->
-  <div class="vista active" id="vista-pacientes">
+  <!-- ══════════ VISTA PACIENTES ══════════ -->
+  <div id="vista-pacientes">
     <div class="page-header">
       <div><h1>Pacientes</h1><p>Gestión de registros de pacientes</p></div>
-      <button type="button" class="btn-primary">+ Nuevo paciente</button>
+      <button class="btn-primary" onclick="toggleFormPac()">+ Nuevo paciente</button>
     </div>
 
     <!-- Formulario nuevo/editar paciente -->
-    <div class="section">
-      <div class="section-title">Nuevo Paciente</div>
+    <div class="form-section" id="form-paciente" style="display:none">
+      <div class="form-section-title" id="form-pac-title">Nuevo Paciente</div>
       <div class="form-grid">
-        <div class="field"><label>Nombre *</label><input type="text" placeholder="Nombre"></div>
-        <div class="field"><label>Apellido Paterno *</label><input type="text" placeholder="Apellido Paterno"></div>
-        <div class="field"><label>Apellido Materno</label><input type="text" placeholder="Apellido Materno"></div>
-        <div class="field"><label>Teléfono (10 dígitos) *</label><input type="tel" maxlength="10" placeholder="5512345678"></div>
-        <div class="field"><label>Correo *</label><input type="email" placeholder="usuario@correo.com"></div>
-        <div class="field"><label>Contraseña *</label><input type="password" placeholder="Mín. 6 caracteres"><span class="hint">Mín. 6 caracteres</span></div>
-        <div class="field"><label>Dirección</label><input type="text" placeholder="Calle y número"></div>
-        <div class="field"><label>CP</label><input type="text" maxlength="5" placeholder="12345"></div>
+        <div class="field"><label>Nombre *</label><input type="text" id="pac-nombre"></div>
+        <div class="field"><label>Apellido Paterno *</label><input type="text" id="pac-ap-pat"></div>
+        <div class="field"><label>Apellido Materno</label><input type="text" id="pac-ap-mat"></div>
+        <div class="field"><label>Teléfono (10 dígitos) *</label><input type="tel" maxlength="10" id="pac-tel" oninput="this.value=this.value.replace(/\D/g,'')"></div>
+        <div class="field"><label>Correo *</label><input type="email" id="pac-email"></div>
+        <div class="field"><label>Contraseña *</label><input type="password" id="pac-pwd"><span class="hint">Mín. 6 caracteres</span></div>
+        <div class="field"><label>Dirección</label><input type="text" id="pac-dir"></div>
+        <div class="field"><label>CP</label><input type="text" maxlength="5" id="pac-cp"></div>
       </div>
       <div style="display:flex;gap:10px;margin-top:16px">
-        <button type="button" class="btn-primary">Guardar</button>
-        <button type="button" class="btn-primary" style="background:#6b7280">Cancelar</button>
+        <button class="btn-primary">Guardar</button>
+        <button class="btn-primary" style="background:#6b7280" onclick="toggleFormPac()">Cancelar</button>
       </div>
     </div>
 
     <div class="section">
-      <div class="section-title">Lista de Pacientes (3)</div>
+      <div class="section-title">Lista de Pacientes (4)</div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>#</th><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Dirección</th><th>CP</th><th>Acciones</th></tr></thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>Juan Pérez López</td>
-              <td>juan@correo.com</td>
+              <td>Juan García Pérez</td>
+              <td>juan@hospitalito.com</td>
               <td>5512345678</td>
               <td>Av. Principal 123</td>
               <td>06600</td>
-              <td><div class="td-actions"><button class="btn-edit">Editar</button><button class="btn-danger">Eliminar</button></div></td>
+              <td>
+                <div class="td-actions">
+                  <button class="btn-edit" onclick="editPaciente('Juan','García','Pérez','5512345678','juan@hospitalito.com','Av. Principal 123','06600')">Editar</button>
+                  <button class="btn-danger" onclick="if(confirm('¿Eliminar paciente?')){}">Eliminar</button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>2</td>
-              <td>María García Soto</td>
-              <td>maria@correo.com</td>
+              <td>María Rodríguez López</td>
+              <td>maria@hospitalito.com</td>
               <td>5598765432</td>
-              <td>Calle 5 de Mayo 45</td>
+              <td>Calle Reforma 45</td>
               <td>11000</td>
-              <td><div class="td-actions"><button class="btn-edit">Editar</button><button class="btn-danger">Eliminar</button></div></td>
+              <td>
+                <div class="td-actions">
+                  <button class="btn-edit">Editar</button>
+                  <button class="btn-danger" onclick="if(confirm('¿Eliminar paciente?')){}">Eliminar</button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>3</td>
-              <td>Carlos Mendoza Ríos</td>
-              <td>carlos@correo.com</td>
-              <td>5534561234</td>
+              <td>Roberto Sánchez Díaz</td>
+              <td>roberto@hospitalito.com</td>
+              <td>5511223344</td>
               <td>—</td>
               <td>—</td>
-              <td><div class="td-actions"><button class="btn-edit">Editar</button><button class="btn-danger">Eliminar</button></div></td>
+              <td>
+                <div class="td-actions">
+                  <button class="btn-edit">Editar</button>
+                  <button class="btn-danger" onclick="if(confirm('¿Eliminar paciente?')){}">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Ana Torres Vega</td>
+              <td>ana@hospitalito.com</td>
+              <td>5544332211</td>
+              <td>Blvd. Norte 78</td>
+              <td>07300</td>
+              <td>
+                <div class="td-actions">
+                  <button class="btn-edit">Editar</button>
+                  <button class="btn-danger" onclick="if(confirm('¿Eliminar paciente?')){}">Eliminar</button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -168,79 +225,111 @@
     </div>
   </div>
 
-  <!-- ════ VISTA DOCTORES ════ -->
-  <div class="vista" id="vista-doctores">
+  <!-- ══════════ VISTA DOCTORES ══════════ -->
+  <div id="vista-doctores" style="display:none">
     <div class="page-header">
-      <div><h1>Doctores</h1><p>Gestión del personal médico</p></div>
-      <button type="button" class="btn-primary">+ Nuevo doctor</button>
+      <div><h1>Médicos</h1><p>Gestión del personal médico</p></div>
+      <button class="btn-primary" onclick="toggleFormDoc()">+ Nuevo médico</button>
     </div>
 
     <!-- Formulario nuevo/editar doctor -->
-    <div class="section">
-      <div class="section-title">Nuevo Doctor</div>
+    <div class="form-section" id="form-doctor" style="display:none">
+      <div class="form-section-title">Nuevo Médico</div>
       <div class="form-grid">
-        <div class="field"><label>Nombre *</label><input type="text" placeholder="Nombre"></div>
-        <div class="field"><label>Apellido Paterno *</label><input type="text" placeholder="Apellido Paterno"></div>
-        <div class="field"><label>Apellido Materno</label><input type="text" placeholder="Apellido Materno"></div>
-        <div class="field">
-          <label>Especialidad</label>
-          <select>
-            <option value="">— Seleccionar —</option>
-            <option>Medicina General</option><option>Cardiología</option><option>Dermatología</option>
-            <option>Endocrinología</option><option>Gastroenterología</option><option>Geriatría</option>
-            <option>Ginecología y Obstetricia</option><option>Neurología</option><option>Oftalmología</option>
-            <option>Oncología</option><option>Ortopedia y Traumatología</option><option>Pediatría</option>
-            <option>Psiquiatría</option><option>Urología</option>
-          </select>
-        </div>
+        <div class="field"><label>Nombre *</label><input type="text"></div>
+        <div class="field"><label>Apellido Paterno *</label><input type="text"></div>
+        <div class="field"><label>Apellido Materno</label><input type="text"></div>
         <div class="field">
           <label>Consultorio</label>
           <select>
             <option value="">— Seleccionar —</option>
             <option>Consultorio 1</option><option>Consultorio 2</option><option>Consultorio 3</option>
-            <option>Consultorio 4</option><option>Consultorio 5</option>
+            <option>Consultorio 4</option><option>Consultorio 5</option><option>Consultorio 6</option>
           </select>
         </div>
-        <div class="field"><label>Correo *</label><input type="email" placeholder="doctor@hospitalito.com"></div>
-        <div class="field full"><label>Contraseña *</label><input type="password" placeholder="Mín. 6 caracteres"></div>
+        <div class="field"><label>Correo *</label><input type="email"></div>
+        <div class="field"><label>Contraseña *</label><input type="password"><span class="hint">Mín. 6 caracteres</span></div>
+        <div class="field full">
+          <label>Especialidades * <span style="font-weight:400;color:#888">(selecciona al menos una)</span></label>
+          <div class="esp-grid">
+            <label class="esp-chip" onclick="toggleChip(this)"><input type="checkbox"> Cardiología</label>
+            <label class="esp-chip" onclick="toggleChip(this)"><input type="checkbox"> Medicina General</label>
+            <label class="esp-chip" onclick="toggleChip(this)"><input type="checkbox"> Dermatología</label>
+            <label class="esp-chip" onclick="toggleChip(this)"><input type="checkbox"> Pediatría</label>
+            <label class="esp-chip" onclick="toggleChip(this)"><input type="checkbox"> Ginecología</label>
+            <label class="esp-chip" onclick="toggleChip(this)"><input type="checkbox"> Neurología</label>
+            <label class="esp-chip" onclick="toggleChip(this)"><input type="checkbox"> Ortopedia</label>
+          </div>
+          <span class="hint">Haz clic en las especialidades para seleccionarlas</span>
+        </div>
+        <div class="field" style="justify-content:center">
+          <label>Estado activo</label>
+          <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          <span class="hint">Si está inactivo no podrá ser asignado en citas</span>
+        </div>
+        <div class="field" style="justify-content:center">
+          <label>Dado de baja</label>
+          <label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label>
+          <span class="hint">Indica que el médico ya no labora en el hospital</span>
+        </div>
       </div>
       <div style="display:flex;gap:10px;margin-top:16px">
-        <button type="button" class="btn-primary">Guardar</button>
-        <button type="button" class="btn-primary" style="background:#6b7280">Cancelar</button>
+        <button class="btn-primary">Guardar</button>
+        <button class="btn-primary" style="background:#6b7280" onclick="toggleFormDoc()">Cancelar</button>
       </div>
     </div>
 
     <div class="section">
-      <div class="section-title">Lista de Doctores (2)</div>
+      <div class="section-title">Lista de Médicos (3)</div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>#</th><th>Nombre</th><th>Especialidad</th><th>Consultorio</th><th>Correo</th><th>Acciones</th></tr></thead>
+          <thead><tr><th>#</th><th>Nombre</th><th>Especialidades</th><th>Consultorio</th><th>Correo</th><th>Estado</th><th>Acciones</th></tr></thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>Dr. Carlos Ruiz Díaz</td>
-              <td>Medicina General</td>
+              <td>Dr. Carlos Martínez López</td>
+              <td><div class="esp-tags"><span class="esp-tag">Cardiología</span></div></td>
               <td>Consultorio 3</td>
-              <td>carlos@hospitalito.com</td>
+              <td>cmartinez@hospitalito.com</td>
+              <td><span class="badge badge-activo">Activo</span></td>
               <td>
                 <div class="td-actions">
-                  <button class="btn-perfil" onclick="mostrarPerfil({nombre:'Carlos',apellido_paterno:'Ruiz',apellido_materno:'Díaz',especialidad:'Medicina General',consultorio:'Consultorio 3',email:'carlos@hospitalito.com'})">Ver perfil</button>
+                  <button class="btn-perfil" onclick="mostrarPerfil({nombre:'Carlos',apellido_paterno:'Martínez',apellido_materno:'López',especialidades:['Cardiología'],consultorio:'Consultorio 3',email:'cmartinez@hospitalito.com',activo:true,baja:false})">Ver perfil</button>
                   <button class="btn-edit">Editar</button>
-                  <button class="btn-danger">Eliminar</button>
+                  <button class="btn-warning">Desactivar</button>
+                  <button class="btn-danger" onclick="if(confirm('¿Eliminar médico?')){}">Eliminar</button>
                 </div>
               </td>
             </tr>
             <tr>
               <td>2</td>
-              <td>Dr. Ana Torres Vega</td>
-              <td>Cardiología</td>
+              <td>Dr. Luis Ramírez Torres</td>
+              <td><div class="esp-tags"><span class="esp-tag">Medicina General</span><span class="esp-tag">Pediatría</span></div></td>
               <td>Consultorio 1</td>
-              <td>ana@hospitalito.com</td>
+              <td>lramirez@hospitalito.com</td>
+              <td><span class="badge badge-activo">Activo</span></td>
               <td>
                 <div class="td-actions">
-                  <button class="btn-perfil" onclick="mostrarPerfil({nombre:'Ana',apellido_paterno:'Torres',apellido_materno:'Vega',especialidad:'Cardiología',consultorio:'Consultorio 1',email:'ana@hospitalito.com'})">Ver perfil</button>
+                  <button class="btn-perfil" onclick="mostrarPerfil({nombre:'Luis',apellido_paterno:'Ramírez',apellido_materno:'Torres',especialidades:['Medicina General','Pediatría'],consultorio:'Consultorio 1',email:'lramirez@hospitalito.com',activo:true,baja:false})">Ver perfil</button>
                   <button class="btn-edit">Editar</button>
-                  <button class="btn-danger">Eliminar</button>
+                  <button class="btn-warning">Desactivar</button>
+                  <button class="btn-danger" onclick="if(confirm('¿Eliminar médico?')){}">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+            <tr style="opacity:.6">
+              <td>3</td>
+              <td>Dra. Elena López Hernández <span class="badge badge-baja">Baja</span></td>
+              <td><div class="esp-tags"><span class="esp-tag">Dermatología</span></div></td>
+              <td>—</td>
+              <td>elopez@hospitalito.com</td>
+              <td><span class="badge badge-baja">Baja</span></td>
+              <td>
+                <div class="td-actions">
+                  <button class="btn-perfil" onclick="mostrarPerfil({nombre:'Elena',apellido_paterno:'López',apellido_materno:'Hernández',especialidades:['Dermatología'],consultorio:'—',email:'elopez@hospitalito.com',activo:false,baja:true})">Ver perfil</button>
+                  <button class="btn-edit">Editar</button>
+                  <button class="btn-activate">Activar</button>
+                  <button class="btn-danger" onclick="if(confirm('¿Eliminar médico?')){}">Eliminar</button>
                 </div>
               </td>
             </tr>
@@ -268,34 +357,86 @@
         <div class="lbl">Correo</div>
         <div class="val" id="perfilEmail" style="word-break:break-all;font-size:.8rem"></div>
       </div>
+      <div class="modal-field full">
+        <div class="lbl">Estado</div>
+        <div class="val" id="perfilEstado"></div>
+      </div>
+      <div class="modal-field full">
+        <div class="lbl">Especialidades</div>
+        <div id="perfilEspTags" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px"></div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  function showVista(v) {
-    document.querySelectorAll('.vista').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    document.getElementById('vista-' + v).classList.add('active');
-    document.getElementById('tab-' + v.slice(0,3)).classList.add('active');
+  // Navegación de vistas
+  function showVista(id) {
+    ['pacientes','doctores'].forEach(v => {
+      document.getElementById('vista-' + v).style.display = v === id ? '' : 'none';
+      document.getElementById('nav-' + v).classList.toggle('active', v === id);
+    });
   }
 
+  // Formulario paciente
+  function toggleFormPac() {
+    const f = document.getElementById('form-paciente');
+    f.style.display = f.style.display === 'none' ? '' : 'none';
+  }
+
+  function editPaciente(nombre, ap, am, tel, email, dir, cp) {
+    document.getElementById('pac-nombre').value = nombre;
+    document.getElementById('pac-ap-pat').value = ap;
+    document.getElementById('pac-ap-mat').value = am;
+    document.getElementById('pac-tel').value = tel;
+    document.getElementById('pac-email').value = email;
+    document.getElementById('pac-dir').value = dir;
+    document.getElementById('pac-cp').value = cp;
+    document.getElementById('form-pac-title').textContent = 'Editar Paciente';
+    document.getElementById('form-paciente').style.display = '';
+    document.getElementById('form-paciente').scrollIntoView({behavior:'smooth'});
+  }
+
+  // Formulario doctor
+  function toggleFormDoc() {
+    const f = document.getElementById('form-doctor');
+    f.style.display = f.style.display === 'none' ? '' : 'none';
+  }
+
+  // Chips especialidades
+  function toggleChip(label) {
+    label.classList.toggle('esp-chip-on');
+    label.querySelector('input').checked = label.classList.contains('esp-chip-on');
+  }
+
+  // Modal perfil doctor
   function mostrarPerfil(d) {
     const nombre = 'Dr. ' + d.nombre + ' ' + d.apellido_paterno + ' ' + d.apellido_materno;
-    const iniciales = (d.nombre[0] || '') + (d.apellido_paterno[0] || '');
-    document.getElementById('perfilAvatar').textContent      = iniciales.toUpperCase();
-    document.getElementById('perfilNombre').textContent      = nombre;
-    document.getElementById('perfilEsp').textContent         = d.especialidad;
+    const iniciales = (d.nombre[0]||'') + (d.apellido_paterno[0]||'');
+    document.getElementById('perfilAvatar').textContent = iniciales.toUpperCase();
+    document.getElementById('perfilNombre').textContent = nombre;
     document.getElementById('perfilConsultorio').textContent = d.consultorio;
-    document.getElementById('perfilEmail').textContent       = d.email;
+    document.getElementById('perfilEmail').textContent = d.email;
+
+    const esps = d.especialidades || [];
+    document.getElementById('perfilEsp').textContent = esps.join(' · ') || '—';
+    const espTags = document.getElementById('perfilEspTags');
+    espTags.innerHTML = '';
+    esps.forEach(e => {
+      const sp = document.createElement('span'); sp.className='esp-tag'; sp.textContent=e; espTags.appendChild(sp);
+    });
+
+    let estadoHtml = '';
+    if (d.baja) estadoHtml = '<span class="badge badge-baja">Baja</span>';
+    else if (d.activo) estadoHtml = '<span class="badge badge-activo">Activo</span>';
+    else estadoHtml = '<span class="badge badge-inactivo">Inactivo</span>';
+    document.getElementById('perfilEstado').innerHTML = estadoHtml;
+
     document.getElementById('perfilModal').classList.add('open');
   }
-  function cerrarPerfil() {
-    document.getElementById('perfilModal').classList.remove('open');
-  }
-  document.getElementById('perfilModal').addEventListener('click', function(e) {
-    if (e.target === this) cerrarPerfil();
-  });
+
+  function cerrarPerfil() { document.getElementById('perfilModal').classList.remove('open'); }
+  document.getElementById('perfilModal').addEventListener('click', e => { if(e.target===e.currentTarget) cerrarPerfil(); });
   document.addEventListener('keydown', e => { if(e.key==='Escape') cerrarPerfil(); });
 </script>
 </body>
